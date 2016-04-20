@@ -1,6 +1,6 @@
 # mini_sendmail v1.3.9-f1
 
-mini_sendmail 1.3.9-f1, Fork of mini_sendmail 1.3.9 adding real username determination solution.
+mini_sendmail 1.3.9-f1, Fork of mini_sendmail 1.3.9 adding an alternative username determination solution.
 
 By Volkan Kucukcakar <vkucukcakar.github.com/v-mini-sendmail>
 
