@@ -8,6 +8,12 @@ By Volkan Kucukcakar <vkucukcakar.github.com/v-mini-sendmail>
 - Removes getlogin(), getpwuid() dependencies by trying to get username from command line arguments.
 - Get real username, does not use a fixed value causing nonsense logs.
 
+mini_sendmail reads its standard input up to an end-of-file and
+sends a copy of the message found there to all of the addresses
+listed.  The message is sent by connecting to a local SMTP server.
+This means mini_sendmail can be used to send email from inside a
+chroot(2) area.
+
 ### Example php.ini configuration: 
 	sendmail_path = /usr/sbin/mini_sendmail -t -i --username examplechroot
 
@@ -21,7 +27,7 @@ By Volkan Kucukcakar <vkucukcakar.github.com/v-mini-sendmail>
 
 
 
-##  mini_sendmail - accept email on behalf of real sendmail
+###  mini_sendmail - accept email on behalf of real sendmail
 ### version 1.3.9 of 19Oct2015
 
 mini_sendmail reads its standard input up to an end-of-file and
