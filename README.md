@@ -21,7 +21,7 @@ By Volkan Kucukcakar <vkucukcakar.github.com/v-mini-sendmail>
 
 
 
-# mini_sendmail - accept email on behalf of real sendmail
+## mini_sendmail - accept email on behalf of real sendmail
 ## version 1.3.9 of 19Oct2015
 
 mini_sendmail reads its standard input up to an end-of-file and
