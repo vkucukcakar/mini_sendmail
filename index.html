@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>mini_sendmail by vkucukcakar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">mini_sendmail</h1>
+      <h2 class="project-tagline">Fork of mini_sendmail adding real username determination solution.</h2>
+      <a href="https://github.com/vkucukcakar/mini_sendmail" class="btn">View on GitHub</a>
+      <a href="https://github.com/vkucukcakar/mini_sendmail/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/vkucukcakar/mini_sendmail/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="mini_sendmail-v139-f1" class="anchor" href="#mini_sendmail-v139-f1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>mini_sendmail v1.3.9-f1</h1>
+
+<p>Fork of mini_sendmail 1.3.9 adding real username determination solution.</p>
+
+<p>By Volkan Kucukcakar </p>
+
+<ul>
+<li>Workaround for "can't determine username" error while running inside chroot jail.</li>
+<li>Removes getlogin(), getpwuid() dependencies by trying to get username from command line arguments.</li>
+<li>Get real username, does not use a fixed value causing nonsense logs.</li>
+</ul>
+
+<p>mini_sendmail reads its standard input up to an end-of-file and
+sends a copy of the message found there to all of the addresses
+listed.  The message is sent by connecting to a local SMTP server.
+This means mini_sendmail can be used to send email from inside a
+chroot(2) area.</p>
+
+<h3>
+<a id="example-phpini-configuration" class="anchor" href="#example-phpini-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example php.ini configuration:</h3>
+
+<pre><code>sendmail_path = /usr/sbin/mini_sendmail -t -i --username examplechroot
+</code></pre>
+
+<h3>
+<a id="test" class="anchor" href="#test" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test:</h3>
+
+<pre><code>$echo "Subject: This is the subject" | chroot /home/examplechroot.example.com /usr/sbin/mini_sendmail -v --username examplechroot user@example.com
+</code></pre>
+
+<hr>
+
+<h3>
+<a id="mini_sendmail---accept-email-on-behalf-of-real-sendmail" class="anchor" href="#mini_sendmail---accept-email-on-behalf-of-real-sendmail" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>mini_sendmail - accept email on behalf of real sendmail</h3>
+
+<h3>
+<a id="version-139-of-19oct2015" class="anchor" href="#version-139-of-19oct2015" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>version 1.3.9 of 19Oct2015</h3>
+
+<p>mini_sendmail reads its standard input up to an end-of-file and
+sends a copy of the message found there to all of the addresses
+listed.  The message is sent by connecting to a local SMTP server.
+This means mini_sendmail can be used to send email from inside a
+chroot(2) area.</p>
+
+<p>See the manual entry for more details.</p>
+
+<p>Files in this distribution:</p>
+
+<pre><code>README      this
+Makefile        guess
+mini_sendmail.c source file
+mini_sendmail.8 manual entry
+</code></pre>
+
+<p>To build: If you're on a SysV-like machine (which includes old Linux systems
+but not new Linux systems), edit the Makefile and uncomment the SYSV_LIBS
+line.  Otherwise, just do a make.</p>
+
+<p>After it's built, you must test it to make sure your local sendmail
+daemon is (a) running and (b) accepting local mail for delivery
+elsewhere.  Here's what a successful test run might look like:</p>
+
+<pre><code>% echo 'Subject: test' | ./mini_sendmail -v jef@mail.acme.com
+&lt;&lt;&lt;&lt; 220 gate.acme.com ESMTP Sendmail; Thu, 16 Dec 1999 17:17:37 -0800 (PST)
+&gt;&gt;&gt;&gt; HELO localhost
+&lt;&lt;&lt;&lt; 250 gate.acme.com Hello localhost [127.0.0.1], pleased to meet you
+&gt;&gt;&gt;&gt; MAIL FROM:&lt;jef@gate.acme.com&gt;
+&lt;&lt;&lt;&lt; 250 &lt;jef@gate.acme.com&gt;... Sender ok
+&gt;&gt;&gt;&gt; RCPT TO:&lt;jef@mail.acme.com&gt;
+&lt;&lt;&lt;&lt; 250 &lt;jef@mail.acme.com&gt;... Recipient ok
+&gt;&gt;&gt;&gt; DATA
+&lt;&lt;&lt;&lt; 354 Enter mail, end with "." on a line by itself
+&lt;&lt;&lt;&lt; 250 RAA58877 Message accepted for delivery
+&gt;&gt;&gt;&gt; QUIT
+&lt;&lt;&lt;&lt; 221 gate.acme.com closing connection
+% 
+</code></pre>
+
+<p>And here's an unsuccessful run where there's no local sendmail
+daemon running:</p>
+
+<pre><code>% echo 'Subject: test' | ./mini_sendmail -v jef@mail.acme.com
+./mini_sendmail: connect: Connection refused
+% 
+</code></pre>
+
+<p>Feedback is welcome - send bug reports, enhancements, checks, money
+orders, etc. to the addresses below.</p>
+
+<pre><code>Jef Poskanzer  jef@mail.acme.com  http://www.acme.com/jef/
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/vkucukcakar/mini_sendmail">mini_sendmail</a> is maintained by <a href="https://github.com/vkucukcakar">vkucukcakar</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
