@@ -8,11 +8,11 @@ By Volkan Kucukcakar <vkucukcakar.github.com/v-mini-sendmail>
 - Removes getlogin(), getpwuid() dependencies by trying to get username from command line arguments.
 - Get real username, does not use a fixed value causing nonsense logs.
 
-## Example php.ini configuration: 
-                      sendmail_path = /usr/sbin/mini_sendmail -t -i --username examplechroot
+### Example php.ini configuration: 
+	sendmail_path = /usr/sbin/mini_sendmail -t -i --username examplechroot
 
 ### Test:
-$echo "Subject: This is the subject" | chroot /home/examplechroot.example.com /usr/sbin/mini_sendmail -v --username examplechroot user@example.com
+	$echo "Subject: This is the subject" | chroot /home/examplechroot.example.com /usr/sbin/mini_sendmail -v --username examplechroot user@example.com
 
 
 	
@@ -21,8 +21,8 @@ $echo "Subject: This is the subject" | chroot /home/examplechroot.example.com /u
 
 
 
-     mini_sendmail - accept email on behalf of real sendmail
-                   version 1.3.9 of 19Oct2015
+# mini_sendmail - accept email on behalf of real sendmail
+## version 1.3.9 of 19Oct2015
 
 mini_sendmail reads its standard input up to an end-of-file and
 sends a copy of the message found there to all of the addresses
