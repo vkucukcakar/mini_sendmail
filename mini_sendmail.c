@@ -15,7 +15,7 @@
 
 /* mini_sendmail - accept email on behalf of real sendmail
 **
-** Copyright © 1999,2015 by Jef Poskanzer <jef@mail.acme.com>.
+** Copyright Â© 1999,2015 by Jef Poskanzer <jef@mail.acme.com>.
 ** All rights reserved.
 **
 ** Redistribution and use in source and binary forms, with or without
@@ -144,6 +144,11 @@ main( int argc, char** argv )
 	{
 	if ( strncmp( argv[argn], "-f", 2 ) == 0 && argv[argn][2] != '\0' )
 	    fake_from = &(argv[argn][2]);
+	else if ( ( strcmp( argv[argn], "-f" ) == 0 ) && ( argn+1 < argc ) )
+	    {
+		argn++;
+		fake_from=argv[argn];
+	    }
 	else if ( strcmp( argv[argn], "-t" ) == 0 )
 	    parse_message = 1;
 #ifdef DO_MINUS_SP
