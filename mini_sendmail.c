@@ -548,6 +548,7 @@ parse_for_recipients( char* message )
 	    case ST_RECIPS:
 	    switch ( *cp )
 		{
+		case '\r':
 		case '\n':
 		add_recipient( recip, ( cp - recip ) );
 		state = ST_BOL;
@@ -558,6 +559,7 @@ parse_for_recipients( char* message )
 		    cp = bcc - 1;
 		    bcc = (char*) 0;
 		    }
+		if (*cp == '\r') ++cp;
 		break;
 		case ',':
 		add_recipient( recip, ( cp - recip ) );
